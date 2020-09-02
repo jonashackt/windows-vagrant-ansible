@@ -2,9 +2,23 @@
 Bringing you fast and hassle-free to a running Windows Vagrant Box, if you need one (which comes probably only for tax software installations :P )
 
 
-### HowTo
+The aim is to give you a no-brainer Windows box, just clone this repo, download & add the box and `vagrant up`.
+
+If you need more stuff, add it to [playbook.yml]. Have fun!
+
+### Prerequisites
 
 > This guide assumes, you have VirtualBox, Vagrant, Python, pip & Ansible ready 
+
+```
+brew cask install virtualbox vagrant
+brew install python
+pip install ansible pywinrm
+```
+
+Ansible Windows connectivity is based on the `pywinrm` package, so we need to install it also.
+
+### HowTo
 
 Download newest Microsoft Edge Windows 10 Vagrant zip from https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/#downloads and unzip after download.
 
@@ -14,32 +28,37 @@ Then add it to Vagrant via
 vagrant box add --name Windows10Edge Win10.box
 ```
 
+> You can also use this nice script to do so for you: https://github.com/chkpnt/MSEdge-Vagrant/blob/master/prepare.sh
+
 Now fire up your Windows box with
 
 ```
 vagrant up
 ```
 
-There´s only one thing, that can cause the vagrant up to run into a “Timed out while waiting for the machine to boot […]”. This is because Microsoft sadly doesn´t configure the Network List Management Policies in a way, that Windows Remote Management (WinRM) could work together with Vagrant completely frictionless. To solve this we need to manually go into Local Security Policy / Network List Management Policies (after the Windows box is up and running), double klick on Network, go to tab Network Location and set the Location type to private and the User permissions to User can change location. Having made these changes, our vagrant up will work like a charm 
+This will also configure the Windows Box to work with Ansible and reduce the gory details (Network access, configure autologon to Windows)
 
-Now run the follow script on the Windows box in order to prepare it for access through Ansible:
+After that, our Ansible [playbook.yml] is automatically executed and installs stuff on our box. Add stuff you need to it, currently only Firefox is installed.
+
+If you don't have the [vagrant-reload](https://github.com/aidanns/vagrant-reload) plugin installed, Vagrant will prompt you to do so. Type `y` and enter:
 
 ```
-iwr https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -UseBasicParsing | iex
-```
+Vagrant has detected project local plugins configured for this
+project which are not installed.
 
-
-
-Ansible Windows connectivity is based on the `pywinrm` package, so we need to install it first:
-
-````
-pip install pywinrm
+  vagrant-reload
+Install local plugins (Y/N) [N]: y
 ```
 
 
 
-Now let's execute our playbook
+### Links
 
-``` 
-ansible-playbook -i hosts playbook.yml
-```
+https://www.virtualbox.org/manual/ch08.html#vboxmanage-modifyvm
+
+Running Powershell scripts as Vagrant provisioner: 
+* https://blog.ipswitch.com/running-powershell-in-vagrant
+* https://www.vagrantup.com/docs/provisioning/shell
+
+Set NetworkConnection Profile to private from 
+* https://www.itprotoday.com/powershell/how-force-network-type-windows-using-powershell

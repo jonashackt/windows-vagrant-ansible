@@ -4,7 +4,7 @@ Bringing you fast and hassle-free to a running Windows Vagrant Box, if you need 
 
 The aim is to give you a no-brainer Windows box, just clone this repo, download & add the box and `vagrant up`.
 
-If you need more stuff, add it to [playbook.yml]. Have fun!
+If you need more stuff, add it to [playbook.yml](playbook.yml). Have fun!
 
 ### Prerequisites
 
@@ -50,6 +50,13 @@ project which are not installed.
 Install local plugins (Y/N) [N]: y
 ```
 
+### Development of Ansible playbook
+
+If your Vagrant box is running & provisioned, and you only want to execute the Ansible playbook, you can do so with:
+
+```
+vagrant provision --provision-with ansible
+```
 
 
 ### Links

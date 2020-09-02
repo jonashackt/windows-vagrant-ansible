@@ -30,11 +30,11 @@ Vagrant.configure("2") do |config|
 
   # Configure Windows Box to allow Ansible connectivity
   # Therefore we use a Powershell script, executed via Vagrant shell provisioner (https://www.vagrantup.com/docs/provisioning/shell)
-  config.vm.provision "shell", path: "configureAutologon.ps1" 
+  config.vm.provision "shell", path: "powershell/configureAutologon.ps1" 
   # Reload box after autologin is active (using https://github.com/aidanns/vagrant-reload)
   config.vm.provision "reload"
-  config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", path: "configureNetworkAccess.ps1" 
-  config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", path: "configureAnsibleAccess.ps1"
+  config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", path: "powershell/configureNetworkAccess.ps1" 
+  config.vm.provision "shell", privileged: "true", powershell_elevated_interactive: "true", path: "powershell/configureAnsibleAccess.ps1"
 
   # Run our Ansible playbook
   config.vm.provision :ansible do |ansible|

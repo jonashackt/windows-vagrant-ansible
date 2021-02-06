@@ -4,4 +4,9 @@
   tasks:
   - name: Install firefox
     win_chocolatey:
-      name: firefox
+      name: 
+      - firefox
+      - ojdkbuild
+      - maven
+      - git
+      - docker

@@ -25,7 +25,7 @@ Download newest Microsoft Edge Windows 10 Vagrant zip from https://developer.mic
 Then add it to Vagrant via
 
 ```
-vagrant box add --name Windows10Edge Win10.box
+vagrant box add --name Windows10Edge MSEdge\ -\ Win10.box
 ```
 
 > You can also use this nice script to do so for you: https://github.com/chkpnt/MSEdge-Vagrant/blob/master/prepare.sh

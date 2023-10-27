@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "Windows10Edge"
+  config.vm.box = "windows11eval"
   config.vm.guest = :windows
   # specify the name of the Vagrant box instance, later needed by ansible
   config.vm.define "windowsbox"
@@ -11,11 +11,15 @@ Vagrant.configure("2") do |config|
   config.vm.communicator = "winrm"
 
   # Configure WinRM Connectivity
-  config.winrm.username = "IEUser"
-  config.winrm.password = "Passw0rd!"
+  config.winrm.username = "User"
+  config.winrm.password = "test"
+  config.winrm.port = 5985
+  config.winrm.basic_auth_only = true
+  config.winrm.ssl_peer_verification = false
+  config.winrm.transport = :plaintext
 
   config.vm.provider "virtualbox" do |vb|
-      vb.name = "Windows10Ansible"
+      vb.name = "Windows11Ansible"
       # Display the VirtualBox GUI when booting the machine
       vb.gui = true
       # Use full screen on mac
